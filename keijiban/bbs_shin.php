@@ -15,10 +15,10 @@ error_reporting(E_ALL);
       "SELECT * FROM post"
       //ORDER BY date;の記述があったが、dbにdateを入れていなかった
     );
-    var_dump($stmt);
+    // var_dump($stmt);
     //なぜfalseか　→　上のせいでおかしなクエリに
     $stmt->execute();
-    //execute はdbか
+    
 
   }catch(PDOExeption $e){
     echo "エラー" . $e->getMessage();
@@ -44,17 +44,10 @@ error_reporting(E_ALL);
     <p>ID:<?php echo $row['id'] ?></p>
     <p>名前:<?php echo $row['name'] ?></p>
     <!--specialで<>などをエスケープし、nl2brでphpの改行をhtmlに直す -->
-    <p>本文:<?php echo nl2br(htmlspecialchars($row['contents'],ENT_QUOTES,'UTF-8'),false);?>>
-    </p>
+    <p>本文：<?php echo nl2br(htmlspecialchars($row['contents'],ENT_QUOTES,'UTF-8'),false)?></p>
 <?php
   endwhile;
-  try{
-    $stmt = $db->prepare("SELECT COUNT(*) FROM post");
-    $stmt->execute();
-  }catch(PDOExeption $e){
-    echo "エラー". $e->getMessage();
-  }
-  ?>
+?>
 
   </body>
   </html>
