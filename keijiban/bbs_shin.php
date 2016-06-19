@@ -1,6 +1,5 @@
 <?php
-//エラーが出て分からなくなりググって調べたエラーを調べるおまじない
-ini_set("display_errors", On);
+ini_set("display_errors", "On");
 error_reporting(E_ALL);
 ?>
 <?php
@@ -13,12 +12,8 @@ error_reporting(E_ALL);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $stmt = $db->prepare(
       "SELECT * FROM post"
-      //ORDER BY date;の記述があったが、dbにdateを入れていなかった
     );
-    // var_dump($stmt);
-    //なぜfalseか　→　上のせいでおかしなクエリに
     $stmt->execute();
-    
 
   }catch(PDOExeption $e){
     echo "エラー" . $e->getMessage();
@@ -43,11 +38,9 @@ error_reporting(E_ALL);
 ?>
     <p>ID:<?php echo $row['id'] ?></p>
     <p>名前:<?php echo $row['name'] ?></p>
-    <!--specialで<>などをエスケープし、nl2brでphpの改行をhtmlに直す -->
     <p>本文：<?php echo nl2br(htmlspecialchars($row['contents'],ENT_QUOTES,'UTF-8'),false)?></p>
 <?php
   endwhile;
 ?>
-
   </body>
   </html>
